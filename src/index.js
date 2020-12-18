@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import { increment, decrement, async_increment } from './redux/actions';
+import { increment, decrement, async_increment, change_theme } from './redux/actions';
 import { rootReducer } from './redux/rootReducer';
 import './styles.css'
 
@@ -32,7 +32,10 @@ function logger (state){
 // applyMiddleware - store enhancer
 // applyMiddleware(...middleware)
 // async action creators can be done
-const store = createStore(rootReducer, 0 ,applyMiddleware(thunk, logger) )
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk, logger)
+)
 
 // window.store = store
 
@@ -61,22 +64,25 @@ asyncButton.addEventListener('click', () => {
 })
 
 themeButton.addEventListener('click', () => {
-  // document.body.classList.toggle("dark")
-  // render()
+  const newTheme = document.body.classList.contains("light")
+    ? "dark"
+    : "light"
+    // pass it to action creator
+  store.dispatch(change_theme(newTheme))
 })
 
 // subscribe here (pass cb to subscribers[])
 // and render it on screen
+// !!! all changes are here
 store.subscribe(() => {
   const state = store.getState()
-  counter.textContent = state.toString()
+  counter.textContent = state.counter.counter.toString()
+
+  // show disabled
+
+  document.body.className = state.theme.value
 })
 
 // set initial value to counter
 store.dispatch({type: "INIT"}) // to init state
 
-
-
-
-
-// render()

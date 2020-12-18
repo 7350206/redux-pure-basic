@@ -1,4 +1,4 @@
-import { INCREMENT, DECREMENT, ASYNC_INCREMENT } from './constants';
+import { INCREMENT, DECREMENT, CHANGE_THEME, DISABLE_BUTTONS, ENABLE_BUTTONS } from './constants';
 
 export const increment = () => {
   return {
@@ -11,14 +11,34 @@ export const decrement = () => {
   }
 }
 
-
 export const async_increment = () => {
 
   return function (dispatch){
     setTimeout(() => {
       dispatch({type: INCREMENT})
-    }, 1500);
-
+      // disable buttons
+    }, 4000);
   }
+}
 
+export const disable_buttons = () => {
+  return {
+    type: DISABLE_BUTTONS
+  }
+}
+export const enable_buttons = () => {
+  return {
+    type: ENABLE_BUTTONS
+  }
+}
+
+
+/**
+ * @param string theme_to_show
+ */
+export function change_theme(theme){
+  return {
+    type: CHANGE_THEME,
+    theme: theme
+  }
 }
