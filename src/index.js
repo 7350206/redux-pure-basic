@@ -1,3 +1,5 @@
+import { createStore } from './create-store';
+import { rootReducer } from './redux/rootReducer';
 import './styles.css'
 // get from a dom tree (span counter)
 const counter = document.getElementById('counter')
@@ -8,36 +10,43 @@ const asyncButton = document.getElementById('async')
 // change body class to "dark"
 const themeButton = document.getElementById('theme')
 
-let state = 0
+//
+const store = createStore(rootReducer, 0 )
 
-function render(){
-  counter.textContent = state.toString()
-}
+// window.store = store
+
+
+// function render(){
+//   counter.textContent = state.toString()
+// }
 
 addButton.addEventListener('click', () => {
-  state++
-  render()
-})
-
-
-asyncButton.addEventListener('click', () => {
-  setTimeout(() => {
-    state++
-    render()
-  }, 2000);
-
+  store.dispatch({type: "INCREMENT"})
 })
 
 subButton.addEventListener('click', () => {
-  state--
-  render()
+  store.dispatch({type: "DECREMENT"})
 })
 
+asyncButton.addEventListener('click', () => {})
 
 themeButton.addEventListener('click', () => {
-  document.body.classList.toggle("dark")
+  // document.body.classList.toggle("dark")
   render()
 })
 
+// subscribe here (pass cb to subscribers[])
+// and render it on screen
+store.subscribe(() => {
+  const state = store.getState()
+  counter.textContent = state.toString()
+})
 
-render()
+// set initial value to counter
+store.dispatch({type: "INIT"}) // there is no any INIT
+
+
+
+
+
+// render()
