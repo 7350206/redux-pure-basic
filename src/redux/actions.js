@@ -14,10 +14,15 @@ export const decrement = () => {
 export const async_increment = () => {
 
   return function (dispatch){
+
+    // disable buttons
+    dispatch(disable_buttons())
+
     setTimeout(() => {
       dispatch({type: INCREMENT})
-      // disable buttons
-    }, 4000);
+      // after work is done - enable buttons
+      dispatch(enable_buttons())
+    }, 3000);
   }
 }
 
@@ -39,6 +44,6 @@ export const enable_buttons = () => {
 export function change_theme(theme){
   return {
     type: CHANGE_THEME,
-    theme: theme
+    payload: theme
   }
 }
