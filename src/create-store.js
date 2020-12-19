@@ -1,9 +1,4 @@
-/** component
-  -> action
-  -> reducer
-  -> store
-  -> rerender component
-
+/**
  * @param {function} rootReducer
  * @param {object}   initialState
  */
@@ -15,7 +10,6 @@ export function createStore(rootReducer, initialState){
 
   const subscribers = []
 
-
   return {
     // action === {type:'SOMETHING_USEFUL'}
     dispatch(action){
@@ -24,12 +18,11 @@ export function createStore(rootReducer, initialState){
 
       // tell subscribers of state changed
       // subscriber is a function, call each of them
-      subscribers.forEach(sub => sub())
-
+      subscribers.forEach(cb => cb())
     },
 
-    // cb - will fired when something happens
     // subscribers
+    // cb - will fired when something happens
     subscribe(cb){
       subscribers.push(cb)
     },
