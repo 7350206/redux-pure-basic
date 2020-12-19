@@ -1,5 +1,17 @@
 ### component -> action -> reducer -> store -> rerender component ###
 
+- redux is a *container*, gives state to view
+its state is one object
+
+view gets its own state through *action* objects
+
+view change its own state through *reducer* function
+
+reducer rule:
+- always return state
+- if *action.type === reducer.case* - return new state
+- if state was changed - component is rerendered (through **store.subscribe()** [observer])
+
 ```
   asyncButton.addEventListener('click', () => {
   //dont do that, when i.e.fetch never know what timeout is over

@@ -1,4 +1,4 @@
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, createStore, compose } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { increment, decrement, async_increment, change_theme } from './redux/actions';
@@ -35,7 +35,10 @@ const themeButton = document.getElementById('theme')
 // async action creators can be done
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunk, logger)
+  compose(
+    applyMiddleware(thunk, logger),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
 )
 
 // window.store = store
